@@ -1,3 +1,4 @@
+require(['jquery.validate'], function() {
 module("messages");
 
 test("predefined message not overwritten by addMethod(a, b, undefined)", function() {
@@ -59,4 +60,5 @@ test("read messages from metadata, with meta option specified, but no metadata i
 		}
 	});
 	ok(!form.valid(), "not valid");
+});
 });

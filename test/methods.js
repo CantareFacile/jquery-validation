@@ -1,4 +1,4 @@
-(function($) {
+require(['jquery.validate', 'jquery.validate.additional'], function() {
 
 function methodTest( methodName ) {
 	var v = jQuery("#form").validate();
@@ -907,7 +907,7 @@ test("pattern", function() {
 function testCardTypeByNumber(number, cardname, expected) {
 	$("#cardnumber").val(number);
 	var actual = $("#ccform").valid();
-	equal(actual, expected, $.format("Expect card number {0} to validate to {1}, actually validated to ", number, expected));
+	equal(actual, expected, $.validator.format("Expect card number {0} to validate to {1}, actually validated to ", number, expected));
 }
 
 test('creditcardtypes, all', function() {
@@ -974,7 +974,7 @@ function fillFormWithValuesAndExpect(formSelector, inputValues, expected) {
 		$(formSelector + ' input:eq(' + i + ')').val(inputValues[i]);
 	}
 	var actual = $(formSelector).valid();
-	equal(actual, expected, $.format("Filled inputs of form '{0}' with {1} values ({2})", formSelector, inputValues.length, inputValues.toString()));
+	equal(actual, expected, $.validator.format("Filled inputs of form '{0}' with {1} values ({2})", formSelector, inputValues.length, inputValues.toString()));
 
 }
 
@@ -1024,4 +1024,4 @@ test("zipcodeUS", function() {
 	ok(!method( "123456-7890" ), "Invalid zip" );
 });
 
-})(jQuery);
+});

@@ -1,3 +1,5 @@
+require(['jquery.validate'], function() {
+
 module("rules");
 
 test("rules() - internal - input", function() {
@@ -274,4 +276,5 @@ test("rules(), add messages", function() {
 	$("#firstnamec").val("test");
 	$("#firstnamec").valid();
 	equal(v.errorList.length, 0);
+});
 });

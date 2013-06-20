@@ -1,3 +1,4 @@
+require(['jquery.validate'], function() {
 if ( window.sessionStorage ) {
 	sessionStorage.clear();
 }
@@ -1492,7 +1493,7 @@ test("Min and Max type absent set by attributes valid", function() {
 
 test("Min and Max range set by attributes valid", function() {
 	//
-	// cannot test for overflow: 
+	// cannot test for overflow:
 	// When the element is suffering from an underflow,
 	// the user agent must set the element's value to a valid
 	// floating-point number that represents the minimum.
@@ -1548,3 +1549,4 @@ test("Min and Max number set by attributes less", function() {
 	equal( label.text(), "Please enter a value greater than or equal to 50.", "Correct error label" );
 });
 
+});
