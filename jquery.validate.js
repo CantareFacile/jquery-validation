@@ -397,7 +397,7 @@ $.extend($.validator, {
 				for ( var name in errors ) {
 					this.errorList.push({
 						message: errors[name],
-						element: this.findByName(name)[0]
+						element: this.findByNameOrId(name)[0]
 					});
 				}
 				// remove items from success list
@@ -739,6 +739,13 @@ $.extend($.validator, {
 		findByName: function( name ) {
 			return this.$currentForm.find("[name='" + name + "']");
 		},
+
+		findByNameOrId: function( name ) {
+			var field = this.$currentForm.find("[name='" + name + "']");
+			if (!field.length){
+				field = this.$currentForm.find("#" + name);
+			}
+			return field;
 		},
 
 		getLength: function( value, element ) {
