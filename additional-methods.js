@@ -8,6 +8,7 @@
  * Released under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  */
+define('jquery.validate.additional', ['jquery.validate'], function() {
 
 (function() {
 
@@ -555,7 +556,7 @@ jQuery.validator.addMethod("require_from_group", function(value, element, option
 		fields.data('being_validated', false);
 	}
 	return validOrNot;
-}, jQuery.format("Please fill at least {0} of these fields."));
+}, jQuery.validator.format("Please fill at least {0} of these fields."));
 
 /*
  * Lets you say "either at least X inputs that match selector Y must be filled,
@@ -591,7 +592,7 @@ jQuery.validator.addMethod("skip_or_fill_minimum", function(value, element, opti
 		fields.data('being_validated', false);
 	}
 	return valid;
-}, jQuery.format("Please either skip these fields or fill at least {0} of them."));
+}, jQuery.validator.format("Please either skip these fields or fill at least {0} of them."));
 
 // Accept a value from a file input based on a required mimetype
 jQuery.validator.addMethod("accept", function(value, element, param) {
@@ -625,10 +626,12 @@ jQuery.validator.addMethod("accept", function(value, element, param) {
 	// Either return true because we've validated each file, or because the
 	// browser does not support element.files and the FileList feature
 	return true;
-}, jQuery.format("Please enter a value with a valid mimetype."));
+}, jQuery.validator.format("Please enter a value with a valid mimetype."));
 
 // Older "accept" file extension method. Old docs: http://docs.jquery.com/Plugins/Validation/Methods/accept
 jQuery.validator.addMethod("extension", function(value, element, param) {
 	param = typeof param === "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
 	return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
-}, jQuery.format("Please enter a value with a valid extension."));
+}, jQuery.validator.format("Please enter a value with a valid extension."));
+
+});
