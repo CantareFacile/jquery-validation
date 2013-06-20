@@ -8,7 +8,7 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 
-define('jquery.validate', ['jquery'], function($) {
+define('jquery.validate', ['underscore', 'jquery'], function(_, $) {
 
 $.extend($.fn, {
 	// http://jqueryvalidation.org/validate/
@@ -396,7 +396,7 @@ $.extend($.validator, {
 				this.errorList = [];
 				for ( var name in errors ) {
 					this.errorList.push({
-						message: errors[name],
+						message: _.first(_.flatten([errors[name]])),
 						element: this.findByNameOrId(name)[0]
 					});
 				}
