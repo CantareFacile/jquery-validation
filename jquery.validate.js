@@ -183,6 +183,7 @@ $.extend($.expr[":"], {
 $.validator = function( options, form ) {
 	this.settings = $.extend( true, {}, $.validator.defaults, options );
 	this.currentForm = form;
+	this.$currentForm = $(form);
 	this.init();
 };
 
@@ -303,7 +304,7 @@ $.extend($.validator, {
 
 		init: function() {
 			this.labelContainer = $(this.settings.errorLabelContainer);
-			this.errorContext = this.labelContainer.length && this.labelContainer || $(this.currentForm);
+			this.errorContext = this.labelContainer.length && this.labelContainer || this.$currentForm;
 			this.containers = $(this.settings.errorContainer).add( this.settings.errorLabelContainer );
 			this.submitted = {};
 			this.valueCache = {};
@@ -333,7 +334,7 @@ $.extend($.validator, {
 					validator.settings[eventType].call(validator, this[0], event);
 				}
 			}
-			$(this.currentForm)
+			this.$currentForm
 				.validateDelegate(":text, [type='password'], [type='file'], select, textarea, " +
 					"[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
 					"[type='email'], [type='datetime'], [type='date'], [type='month'], " +
@@ -343,7 +344,7 @@ $.extend($.validator, {
 				.validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);
 
 			if ( this.settings.invalidHandler ) {
-				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
+				this.$currentForm.bind("invalid-form.validate", this.settings.invalidHandler);
 			}
 		},
 
@@ -353,7 +354,7 @@ $.extend($.validator, {
 			$.extend(this.submitted, this.errorMap);
 			this.invalid = $.extend({}, this.errorMap);
 			if ( !this.valid() ) {
-				$(this.currentForm).triggerHandler("invalid-form", [this]);
+				this.$currentForm.triggerHandler("invalid-form", [this]);
 			}
 			this.showErrors();
 			return this.valid();
@@ -414,7 +415,7 @@ $.extend($.validator, {
 		// http://jqueryvalidation.org/Validator.resetForm/
 		resetForm: function() {
 			if ( $.fn.resetForm ) {
-				$(this.currentForm).resetForm();
+				this.$currentForm.resetForm();
 			}
 			this.submitted = {};
 			this.lastElement = null;
@@ -473,7 +474,7 @@ $.extend($.validator, {
 				rulesCache = {};
 
 			// select all valid inputs inside the form (no submit or reset buttons)
-			return $(this.currentForm)
+			return this.$currentForm
 			.find("input, select, textarea")
 			.not(":submit, :reset, :image, [disabled]")
 			.not( this.settings.ignore )
@@ -736,7 +737,8 @@ $.extend($.validator, {
 		},
 
 		findByName: function( name ) {
-			return $(this.currentForm).find("[name='" + name + "']");
+			return this.$currentForm.find("[name='" + name + "']");
+		},
 		},
 
 		getLength: function( value, element ) {
@@ -787,10 +789,10 @@ $.extend($.validator, {
 			}
 			delete this.pending[element.name];
 			if ( valid && this.pendingRequest === 0 && this.formSubmitted && this.form() ) {
-				$(this.currentForm).submit();
+				this.$currentForm.submit();
 				this.formSubmitted = false;
 			} else if (!valid && this.pendingRequest === 0 && this.formSubmitted) {
-				$(this.currentForm).triggerHandler("invalid-form", [this]);
+				this.$currentForm.triggerHandler("invalid-form", [this]);
 				this.formSubmitted = false;
 			}
 		},
