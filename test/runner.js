@@ -2,7 +2,7 @@ var parts = document.location.search.slice( 1 ).split( "&" ),
 	length = parts.length,
 	i = 0,
 	current,
-	version = "1.9.1",
+	version = "1.10.1",
 	jqueryPath = "http://code.jquery.com/jquery-git";
 
 for ( ; i < length; i++ ) {
