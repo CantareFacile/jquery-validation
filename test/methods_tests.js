@@ -441,7 +441,7 @@ define(['jquery.validate', 'jquery.validate.additional'], function() {
 
 	test("remote extensions", function() {
 		stop();
-		expect(6);
+		expect(5);
 		var e = $("#username");
 		var v = $("#userForm").validate({
 			rules: {
